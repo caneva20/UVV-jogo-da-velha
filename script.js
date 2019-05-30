@@ -98,7 +98,7 @@ function onClick(e) {
     addImg(e.target, player.img.src, player.img.size.y, player.img.size.x);
 
     if (checkWin()) {
-        var id = players[currentPlayerIndex].id;
+        const id = players[currentPlayerIndex].id;
 
         setTimeout(() => alert(`Player ${id} wins!`), 25);
     }
