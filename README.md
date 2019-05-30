@@ -1,3 +1,3 @@
-# UVV-jogo-da-velha
+# UVV Jogo da velha
 
 Project created during class
