@@ -27,11 +27,6 @@ const players = [
     }
 ];
 
-/*
-*
-*
-* */
-
 const winPatterns = [
     [
         [true, true, true],
@@ -75,7 +70,6 @@ const winPatterns = [
     ],
 ];
 
-// let currentPlayer = players[0];
 let currentPlayerIndex = 0;
 
 const gameEl = document.getElementById("game");
@@ -100,17 +94,24 @@ function onClick(e) {
     if (checkWin()) {
         const id = players[currentPlayerIndex].id;
 
-        setTimeout(() => alert(`Player ${id} wins!`), 25);
+        setTimeout(() => {
+            alert(`Player ${id.toUpperCase()} wins!`)
+
+            reload();
+        }, 25);
+    } else if (checkDraw()) {
+        setTimeout(() => {
+            alert(`DRAW!`);
+
+            reload();
+        }, 25);
     }
 
     nextPlayer();
-    console.log(game);
 }
 
 function nextPlayer() {
     currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
-
-    console.log("current", players[currentPlayerIndex]);
 }
 
 function getCoord(el) {
@@ -132,12 +133,10 @@ function checkWin() {
     const id = players[currentPlayerIndex].id;
 
     outer: for (pattern of winPatterns) {
-        for(let y = 0; y < game.length; y++) {
-            for(x = 0; x < game[y].length; x++) {
+        for (let y = 0; y < game.length; y++) {
+            for (x = 0; x < game[y].length; x++) {
                 let required = pattern[y][x];
                 let cellId = game[y][x];
-
-                // console.log(`P: ${required} G: ${cellId}`);
 
                 if (required) {
                     if (cellId !== id) {
@@ -151,6 +150,14 @@ function checkWin() {
     }
 
     return false;
+}
+
+function checkDraw() {
+    return !game.flat().any(el => el === undefined);
+}
+
+function reload() {
+    window.location = window.location;
 }
 
 function addImg(parent, src, height, width) {
